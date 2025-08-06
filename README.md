@@ -5,7 +5,9 @@ A full-stack system for visualizing San Francisco MUNI buses and their occupancy
 ---
 
 ## How to Visualize (after completing the Setup)
-visit `http:/<IP-addr-where-api-container-runs>:8000/hot-data` in your browser, or run `open index.html`.
+
+Open `frontend/index.html` in your browser, or visit:
+```http:/<IP-addr-where-api-container-runs>:8000/hot-data``` to see the raw JSON served by the API.
 
 ## Features
 
@@ -20,7 +22,7 @@ visit `http:/<IP-addr-where-api-container-runs>:8000/hot-data` in your browser, 
 ## System Architecture
 
 <p align="center">
-  <img src="assets/system_diagram.png" width="700"/>
+  <img src="assets/system_diagram_2.png" width="700"/>
 </p>
 
 The Raspberry Pi periodically fetches GTFS-RT vehicle data using `fetch_hot_muni.py`, which stores a JSON snapshot on an attached SSD. A containerized FastAPI app (`hot-service.py`) serves this data on port `8000`. The frontend, built with HTML/CSS/JS, polls this API every 30 seconds and visualizes live bus occupancy on a Leaflet map.
@@ -31,18 +33,19 @@ The Raspberry Pi periodically fetches GTFS-RT vehicle data using `fetch_hot_muni
 muni_map
 
 ```bash
+muni_map
 ├── api
-│   ├── fetch_hot_muni.py
-│   └── hot-service.py
+│   ├── fetch_hot_muni.py # fetches GTFS-RT data and saves to SSD
+│   └── hot-service.py # serves JSON via FastAPI
 ├── assets
-│   └── system_diagram.png
-├── Dockerfile
+│   └── system_diagram.png # architecture sketch
+├── Dockerfile # builds the FastAPI container
 ├── frontend
-│   ├── index.html
-│   ├── muni.js
-│   └── style.css
+│   ├── index.html # main page with Leaflet map
+│   ├── muni.js # handles polling and rendering
+│   └── style.css # map and legend styling
 ├── README.md
-└── requirements.txt
+└── requirements.txt # Python requirements for fetch script and docker
 ```
 ---
 
@@ -75,7 +78,7 @@ then add
 * * * * * sleep 30; /path/to/venv/bin/python /path/to/muni_map/api/fetch_hot_muni.py
 ```
 
-# Build
+## Build api container and run it
 In `muni_map`, run
 ```bash
 docker build -t muni-api .
@@ -86,5 +89,8 @@ docker run -d -p 8000:8000 \
   -e HOT_DATA_PATH=/data/map_data.json \
   muni-api
 ```
+
+
+
 
 
