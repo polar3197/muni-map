@@ -76,7 +76,7 @@ then add
 * * * * * sleep 30; /path/to/venv/bin/python /path/to/muni_map/api/fetch_hot_muni.py
 ```
 
-# Build
+## Build api container and run it
 In `muni_map`, run
 ```bash
 docker build -t muni-api .
@@ -87,6 +87,7 @@ docker run -d -p 8000:8000 \
   -e HOT_DATA_PATH=/data/map_data.json \
   muni-api
 ```
+
 
 
 
