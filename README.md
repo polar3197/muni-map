@@ -2,6 +2,9 @@
 
 A full-stack system for visualizing San Francisco MUNI buses and their occupancy levels in real time. This project pulls GTFS-RT data from the SFMTA public feed, stores the results on an SSD attached to a Raspberry Pi, and serves a live map via a containerized FastAPI endpoint and Leaflet frontend.
 
+<p align="center"> <img src="assets/map_preview.png" width="800"/> </p>
+<sub><p align="center">Map shows real-time vehicle positions and occupancy levels every 30 seconds</p></sub>
+
 ---
 
 ## How to Visualize (after completing the Setup)
@@ -89,6 +92,7 @@ docker run -d -p 8000:8000 \
   -e HOT_DATA_PATH=/data/map_data.json \
   muni-api
 ```
+
 
 
 
