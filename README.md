@@ -17,23 +17,41 @@ visit `http:/<IP-addr-where-api-container-runs>:8000/hot-data` in your browser, 
 
 ---
 
-## Architecture
+## System Architecture
 
-The backend and frontend are decoupled. The API serves fresh JSON data; the map pings it every 30 seconds and redraws the view accordingly.
+<p align="center">
+  <img src="assets/system_diagram.png" width="700"/>
+</p>
+
+The Raspberry Pi periodically fetches GTFS-RT vehicle data using `fetch_hot_muni.py`, which stores a JSON snapshot on an attached SSD. A containerized FastAPI app (`hot-service.py`) serves this data on port `8000`. The frontend, built with HTML/CSS/JS, polls this API every 30 seconds and visualizes live bus occupancy on a Leaflet map.
 
 ---
 
 ## Repo Structure
 muni_map
+
 ├── api
+
 │   ├── fetch_hot_muni.py
+
 │   └── hot-service.py
+
+├── assets
+
+│   └── system_diagram.png
+
 ├── Dockerfile
+
 ├── frontend
+
 │   ├── index.html
+
 │   ├── muni.js
+
 │   └── style.css
+
 ├── README.md
+
 └── requirements.txt
 
 ---
@@ -78,3 +96,4 @@ docker run -d -p 8000:8000 \
   -e HOT_DATA_PATH=/data/map_data.json \
   muni-api
 ```
+
