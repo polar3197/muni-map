@@ -15,7 +15,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-HOT_DATA_PATH = "/mnt/ssd/hot/map_data.json"
+# allow data path to be specified (for Docker container)
+HOT_DATA_PATH = os.environ.get("HOT_DATA_PATH", "/mnt/ssd/hot/map_data.json")
 
 @app.get("/hot-data")
 async def get_hot_data():
