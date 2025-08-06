@@ -1,4 +1,4 @@
-# Real-Time SFMTA MUNI Bus Tracker
+# Real-Time SFMTA MUNI Bus Tracker (Live at https://polar3197.github.io/map/)
 
 A full-stack system for visualizing San Francisco MUNI buses and their occupancy levels in real time. This project pulls GTFS-RT data from the SFMTA public feed, stores the results on an SSD attached to a Raspberry Pi, and serves a live map via a containerized FastAPI endpoint and Leaflet frontend.
 
@@ -92,6 +92,7 @@ docker run -d -p 8000:8000 \
   -e HOT_DATA_PATH=/data/map_data.json \
   muni-api
 ```
+
 
 
 
