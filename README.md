@@ -30,30 +30,20 @@ The Raspberry Pi periodically fetches GTFS-RT vehicle data using `fetch_hot_muni
 ## Repo Structure
 muni_map
 
+```bash
 ├── api
-
 │   ├── fetch_hot_muni.py
-
 │   └── hot-service.py
-
 ├── assets
-
 │   └── system_diagram.png
-
 ├── Dockerfile
-
 ├── frontend
-
 │   ├── index.html
-
 │   ├── muni.js
-
 │   └── style.css
-
 ├── README.md
-
 └── requirements.txt
-
+```
 ---
 
 ## Setup Instructions
@@ -96,4 +86,5 @@ docker run -d -p 8000:8000 \
   -e HOT_DATA_PATH=/data/map_data.json \
   muni-api
 ```
+
 
