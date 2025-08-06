@@ -5,7 +5,9 @@ A full-stack system for visualizing San Francisco MUNI buses and their occupancy
 ---
 
 ## How to Visualize (after completing the Setup)
-visit `http:/<IP-addr-where-api-container-runs>:8000/hot-data` in your browser, or run `open index.html`.
+
+Open `frontend/index.html` in your browser, or visit:
+```http:/<IP-addr-where-api-container-runs>:8000/hot-data``` to see the raw JSON served by the API.
 
 ## Features
 
@@ -33,17 +35,17 @@ muni_map
 ```bash
 muni_map
 ├── api
-│   ├── fetch_hot_muni.py
-│   └── hot-service.py
+│   ├── fetch_hot_muni.py # fetches GTFS-RT data and saves to SSD
+│   └── hot-service.py # serves JSON via FastAPI
 ├── assets
-│   └── system_diagram.png
-├── Dockerfile
+│   └── system_diagram.png # architecture sketch
+├── Dockerfile # builds the FastAPI container
 ├── frontend
-│   ├── index.html
-│   ├── muni.js
-│   └── style.css
+│   ├── index.html # main page with Leaflet map
+│   ├── muni.js # handles polling and rendering
+│   └── style.css # map and legend styling
 ├── README.md
-└── requirements.txt
+└── requirements.txt # Python requirements for fetch script and docker
 ```
 ---
 
@@ -87,6 +89,7 @@ docker run -d -p 8000:8000 \
   -e HOT_DATA_PATH=/data/map_data.json \
   muni-api
 ```
+
 
 
 
