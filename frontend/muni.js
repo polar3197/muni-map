@@ -66,9 +66,9 @@ document.addEventListener("visibilitychange", () => {
     clearInterval(pollInterval);
   } else {
     updateVehicles();
-    pollInterval = setInterval(updateVehicles, 30000);
+    pollInterval = setInterval(updateVehicles, 60000);
   }
 });
 
 updateVehicles();
-pollInterval = setInterval(updateVehicles, 30000);
+pollInterval = setInterval(updateVehicles, 60000);
