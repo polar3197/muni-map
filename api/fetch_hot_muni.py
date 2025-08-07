@@ -1,15 +1,18 @@
 import pandas as pd
-import uuid
 import time
-import shutil
 import os
+import subprocess
 import json
 import requests
 from datetime import datetime, timezone
 from google.transit import gtfs_realtime_pb2
 import pytz
 
-output_dir = "/mnt/ssd/hot/"
+hot_output_dir = "/mnt/ssd/hot/"
+intermediate_output_dir = "/mnt/ssd/otwt_quentin/"
+
+# to track every third pull (180s) and save to longterm storage
+pull_count = 0
 
 while True:
     try:
@@ -70,12 +73,37 @@ while True:
                     "occupancy_status": v.occupancy_status
                 }
                 vehicles.append(vehicle)
-                count += 1
 
-        # Write to disk
-        with open(os.path.join(output_dir, "map_data.json"), "w") as f:
-            json.dump(vehicles, f, indent=2)
-        print(f"[{datetime.now().isoformat()}] Saved {len(vehicles)} vehicles")
+        if vehicles:
+            if pull_count % 3 == 0:
+                latest_datetime = max(datetime.fromisoformat(v["timestamp_iso"]) for v in vehicles)
+                timestamp_str = latest_datetime.strftime("%Y%m%d_%H%M%S")
+                parquet_filename = f"vehicles_{timestamp_str}.parquet"
+                df = pd.DataFrame(vehicles)
+                # translate to parquet
+                df.to_parquet(os.path.join(intermediate_output_dir, parquet_filename), engine="pyarrow")
+                
+                # Send to Quentin using rsync
+                result = subprocess.run([
+                    "rsync", "-av", "--remove-source-files",
+                    intermediate_output_dir,
+                    "charlie@quentin.local:/mnt/ssd/raw/vehicle/"
+                ])
+
+                if result.returncode == 0:
+                    print(f"[{datetime.now().isoformat()}] Synced to Quentin and removed local file.")
+                else:
+                    print(f"[{datetime.now().isoformat()}] rsync failed with code {result.returncode}. File retained.")
+                
+                pull_count = 0
+
+            # Write to disk
+            with open(os.path.join(hot_output_dir, "map_data.json"), "w") as f:
+                json.dump(vehicles, f, indent=2)
+            print(f"[{datetime.now().isoformat()}] Saved {len(vehicles)} vehicles")
+
+        # mark another successful pull
+        pull_count += 1
     except Exception as e:
         print("Error:", e)
     time.sleep(60)  # wait 60 seconds before next fetch
