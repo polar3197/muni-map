@@ -22,13 +22,13 @@ legend.addTo(map);
 // =====================
 
 function getOccupancyColor(vehicle) {
-  switch (vehicle.occupancy_status) {
+  switch (vehicle.occupancy) {
     case 0: return "lightblue";
     case 1: return "lightgreen";
     case 2: return "yellow";
     case 3: return "lightcoral";
     default:
-      console.log(vehicle.route_id, vehicle.occupancy_status);
+      console.log(vehicle.route_id, vehicle.occupancy);
       return "lightgray";
   }
 }
@@ -44,6 +44,7 @@ function updateVehicles() {
   })
     .then(res => res.json())
     .then(data => {
+      
       data.forEach(vehicle => {
         if (!vehicle.route_id) return;
         const color = getOccupancyColor(vehicle);
@@ -52,7 +53,7 @@ function updateVehicles() {
           html: `<div style="background-color:${color}; padding: 2px 4px; border-radius: 4px;">${vehicle.route_id || 'OOS'}</div>`,
           iconSize: null
         });
-        const marker = L.marker([vehicle.latitude, vehicle.longitude], { icon: labelIcon }).addTo(map);
+        const marker = L.marker([vehicle.lat, vehicle.lon], { icon: labelIcon }).addTo(map);
         vehicleMarkers.push(marker);
       });
     })
