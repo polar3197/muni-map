@@ -1,18 +1,26 @@
 import pandas as pd
 import dotenv
 import os
+<<<<<<< HEAD
+=======
+import subprocess
+import dotenv
+>>>>>>> 1ec6a119f3d4c482ca6d33907af93197f691e315
 import json
 import requests
 from datetime import datetime, timezone
 from google.transit import gtfs_realtime_pb2
 import pytz
 
+# load muni api key from local .env
+load_dotenv()
+MUNI_API_KEY = os.getenv('MUNI_API_KEY')
 hot_output_dir = "/mnt/ssd/hot/"
 
 
 try:
     # Fetch Protocol Buffer contents from MUNI API
-    url = "http://api.511.org/transit/vehiclepositions?api_key=59a9ae05-3f9c-440e-8343-e3256be79b84&agency=SF"
+    url = "http://api.511.org/transit/vehiclepositions?api_key={MUNI_API_KEY}&agency=SF"
     response = requests.get(url)
 
     feed = gtfs_realtime_pb2.FeedMessage()
