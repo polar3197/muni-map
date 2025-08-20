@@ -72,18 +72,11 @@ try:
                 # time data
                 "iso_timestamp": dt_local.isoformat(),
                 "active": active,
-                # "year": dt_local.year,
-                # "month": dt_local.month,
-                # "day": dt_local.day,
-                # "hour": dt_local.hour,
-                # "minute": dt_local.minute,
                 
                 # trip data
                 "trip_id": trip_id,
                 "route_id": route_id,
                 "direction_id": direction_id,
-                # "start_date": start_date,
-                # "schedule_relationship": schedule_relationship,
 
                 # vehicle data
                 "vehicle_id": v.vehicle.id if v.HasField("vehicle") else None,
