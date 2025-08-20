@@ -1,7 +1,6 @@
 import pandas as pd
-import time
+import dotenv
 import os
-import subprocess
 import json
 import requests
 from datetime import datetime, timezone
@@ -9,6 +8,7 @@ from google.transit import gtfs_realtime_pb2
 import pytz
 
 hot_output_dir = "/mnt/ssd/hot/"
+
 
 try:
     # Fetch Protocol Buffer contents from MUNI API
