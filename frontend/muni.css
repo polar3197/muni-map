@@ -1,0 +1,85 @@
+/* Reset form positioning */
+form {
+    margin: 0 auto 1em auto;  /* Simple centering */
+    max-width: 900px;         /* Match your map width */
+    padding: 0 20px;          /* Add padding for mobile */
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.form-left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-right {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Mobile fixes */
+@media (max-width: 768px) {
+    form {
+        padding: 0 10px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .form-left {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .form-left input[type="text"] {
+        min-width: 200px;
+    }
+}
+
+/* Map styles */
+#map {
+    height: 600px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    #map {
+        height: 400px;
+        width: 95%;
+        margin: 0 auto;
+    }
+}
+
+/* dot selects div with matching 'class' val -- classes are not unique */
+.legend {
+    background: white;
+    padding: 5px;
+    line-height: 10px;
+    color: #333;
+    font-size: 12px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+
+.vehicle-label {
+    background: white;
+    border: 1px solid gray;
+    padding: 2px 4px;
+    border-radius: 16px;
+    font-size: 12px;
+    white-space: nowrap;
+}

@@ -6,16 +6,15 @@ import os
 
 app = FastAPI()
 
-# Add this to allow cross-origin requests from anywhere
+# this allows cross-origin requests from anywhere
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can restrict this to specific IPs/domains later
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# allow data path to be specified (for Docker container)
 HOT_DATA_PATH = os.environ.get("HOT_DATA_PATH", "/mnt/ssd/hot/map_data.json")
 
 @app.get("/hot-data")

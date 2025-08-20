@@ -1,0 +1,46 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- imports leaflet.js styles -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+<!-- imports js for leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<!-- imports styles from map.css -->
+<link rel="stylesheet" href="muni.css">
+
+<meta charset="UTF-8">
+<title>SFMTA MUNI Map</title>
+</head>
+<body>
+<!-- set page header title -->
+<h2 style="text-align: center; margin-bottom: 0.5em;">
+    SFMTA MUNI Busses - Live to 60s
+</h2>
+<form>
+    <!-- "flexbox" defined in css file for this formatting -->
+    <div class="form-row">
+        <div class="form-left">
+            <label for="rid">show route(s)</label>
+            <input type="text" id="rid" placeholder="1, 5, 38R, N, ...">
+            <input type="submit" value="submit" onclick="applyRouteFilter(); return false">
+            <input type="reset" value="show all" onclick="clearFilters(); return false">
+        </div>
+        <div class="form-right">
+            Buses active: <span id="bus-count">0</span>
+        </div>
+    </div>
+</form>
+<div id="map"></div>
+<!-- import map.js, which implements map -->
+<script src="muni.js"></script>
+<div style="height: 12em;"></div>
+</body>
+</html>
