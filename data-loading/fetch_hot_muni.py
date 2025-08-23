@@ -1,11 +1,6 @@
 import pandas as pd
-import dotenv
 import os
-<<<<<<< HEAD
-=======
-import subprocess
-import dotenv
->>>>>>> 1ec6a119f3d4c482ca6d33907af93197f691e315
+from dotenv import load_dotenv
 import json
 import requests
 from datetime import datetime, timezone
