@@ -24,24 +24,28 @@
 <h2 style="text-align: center; margin-bottom: 0.5em;">
     SFMTA MUNI Buses - Live to 60s
 </h2>
-<form>
-    <!-- "flexbox" defined in css file for this formatting -->
-    <div class="form-row">
-        <div class="form-left">
-            <label for="rid">show route(s)</label>
-            <input type="text" id="rid" placeholder="1, 5, 38R, N, ...">
-            <input type="submit" value="submit" onclick="applyRouteFilter(); return false">
-            <input type="reset" value="show all" onclick="clearFilters(); return false">
-        </div>
-        <div class="form-right">
-            Buses active: <span id="bus-count">0</span>
-        </div>
-    </div>
-</form>
+
 <div class="map-list-container">
     <div id="map"></div>
-    <div class="sidebar">
-        <!-- your list items go here -->
+    <div class="bus-info-container">
+        
+        <!-- "flexbox" defined in css file for this formatting -->
+        <div class="bic-1">
+            <form>
+                <label for="rid">show route(s)</label>
+                <input type="text" id="rid" placeholder="1, 5, 38R, N, ...">
+                <input type="submit" value="submit" onclick="applyRouteFilter(); return false">
+                <input type="reset" value="show all" onclick="clearFilters(); return false">
+            </form>
+        </div>
+        <div class="bic-2">
+            <div>Buses active: <span id="bus-count">0</span></div>
+            <div>Routes active: <span id="route-count">0</span></div>
+        </div>
+        <div class="route-list">
+            <!-- filled in by muni.js in the updateVehicles() function-->
+        </div>
+    </div>
     </div>
 </div>
 <!-- import map.js, which implements map -->

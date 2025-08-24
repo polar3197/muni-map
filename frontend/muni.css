@@ -1,34 +1,91 @@
 
 /*+++++++++++++++++++++++++++++++++++++++++*/
-/*============ FORM =======================*/
+/*============ FORM FLEXBOX ===============*/
 /*+++++++++++++++++++++++++++++++++++++++++*/
 
 /* Reset form positioning */
 form {
-    margin: 0 auto 1em auto;  /* Simple centering */
-    max-width: 900px;         /* Match your map width */
-    padding: 0 20px;          /* Add padding for mobile */
+    margin: 0 auto auto auto;  /* Simple centering */
+    padding: 0 10px;
 }
 
-.form-row {
+.bus-info-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; 
     align-items: center;
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex: 2;
+    height: 600px; /* Match your map height */
+    /* border-color: rgb(177, 5, 219);
+    border-width: 5px;
+    border-style: solid; */
 }
 
-.form-left {
+.bic-1 {
     display: flex;
     gap: 8px;
+    width: 100%;
     align-items: center;
     flex-wrap: wrap;
+    flex-shrink: 0;   
+    /* border-color: rgb(3, 16, 5);
+    border-width: 5px;
+    border-style: solid; */
 }
 
-.form-right {
+.bic-2 {
     font-weight: bold;
     white-space: nowrap;
+    flex-shrink: 0;  
+    margin: 1em auto 1em auto; 
+    /* border-color: rgb(221, 6, 6);
+    border-width: 5px;
+    border-style: solid; */
+}
+
+.route-list {
+    overflow-y: auto;
+    flex: 1;
+    width: 80%;
+    min-height: 0;
+    padding: 0 10px;   
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+    border-style: solid;
+}
+
+/* ROUTE ID CARD is a flexbox */
+.route-card {
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+    padding: 4px 12px;
+    height: 50px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-color: rgb(40, 38, 38);
+    border-width: 0.1px;
+    border-style: solid;
+    background-color:rgb(255, 251, 228);
+    box-sizing: border-box;
+    /* other card styles */
+}
+
+.route-id {
+    text-align: center;
+    padding: 0 1em 0 1em;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+    background-color:rgb(210, 243, 255);
+    border-style: solid;
+}
+
+.route-stats {
+    flex: 1;
+    text-align: right;
+    padding-right: 1em;
 }
 
 /* Mobile fixes */
@@ -37,44 +94,49 @@ form {
         padding: 0 10px;
     }
     
-    .form-row {
+    .bus-info-container {
         flex-direction: column;
         text-align: center;
         gap: 15px;
+        border-color: rgb(4, 171, 29);
+        border-width: 5px;
+        border-style: solid;
     }
     
-    .form-left {
+    .bic-1 {
         justify-content: center;
-        flex-wrap: wrap;
+        /* flex-wrap: wrap; */
     }
     
-    .form-left input[type="text"] {
+    .bic-2 input[type="text"] {
         min-width: 200px;
+    }
+
+    .route-list {
+        overflow-y: auto;
     }
 }
 
+
 /*+++++++++++++++++++++++++++++++++++++++++*/
-/*============ MAP ========================*/
+/*============ MAP & STATS FLEXBOX ========*/
 /*+++++++++++++++++++++++++++++++++++++++++*/
 
 .map-list-container {
     display: flex;
-}
-
-.sidebar {
-    flex: 1;
-    overflow-y: auto;
-    height: 600px; /* Match your map height */
-    /* Add padding, background, etc. as desired */
+    padding: 0 110px;          /* Add equal padding on left/right */
+    gap: 10px;  
+    /* border-color: rgb(234, 39, 13);
+    border-width: 5px;
+    border-style: solid;*/
+    margin-top: 3em; 
 }
 
 /* Map styles */
 #map {
     height: 600px;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    flex: 4
+    flex: 5;
+    position: relative;
 }
 
 @media (max-width: 768px) {

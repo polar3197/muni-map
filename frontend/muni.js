@@ -5,8 +5,8 @@ let route_filtered = false;
 let route_filtered_list = [];
 let type_filtered = false;
 let type_filtered_list = [];
-
 let num_active_vehicles = 0;
+let routeCounts = {};
 
 // ===== MAP SETUP =====
     // L is Leaflet object imported with the js code for Leaflet
@@ -75,6 +75,8 @@ function updateVehicles() {
     vehicleMarkers.forEach(marker => map.removeLayer(marker));
     // clears vehicleMarkers, so it only contains current markers
     vehicleMarkers = [];
+    // clears routes to display
+    routeCounts = {};
     // grab json object from API
     fetch("https://968885fb556c.ngrok-free.app/hot-data", {
         // tell auto-fetch it can skip ngrok's verification header
@@ -93,6 +95,13 @@ function updateVehicles() {
                 if (!route_filtered_list.includes(String(vehicle.route_id).toUpperCase())) {
                     return; // Skip this vehicle
                 }
+            }
+
+            // keep track of count of vehicle per route
+            if (routeCounts[vehicle.route_id]) {
+                routeCounts[vehicle.route_id]++;
+            } else {
+                routeCounts[vehicle.route_id] = 1;
             }
 
             // get vehicle color
@@ -115,7 +124,24 @@ function updateVehicles() {
             num_active_vehicles = vehicleMarkers.length;
             document.getElementById('bus-count').textContent = num_active_vehicles;
         });
-      }).catch(error => console.error("Error fetching data:", error));
+        num_active_routes = Object.keys(routeCounts).length;
+        document.getElementById('route-count').textContent = num_active_routes;
+
+        // Update the html route list
+        let html = '';
+        Object.entries(routeCounts).forEach(([route, count]) => {
+            html += `
+                <div class="route-card">
+                    <div class="route-id">Route: ${route}</div>
+                    <div class="route-stats">${count}</div>
+                </div>
+            `
+        });
+        const routeListContainer = document.querySelector('.route-list');
+        routeListContainer.innerHTML = html;
+    }).catch(error => console.error("Error fetching data:", error));
+    
+    
 }
 
 // ===== FILTERS =====
