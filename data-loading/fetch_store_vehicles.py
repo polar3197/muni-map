@@ -18,8 +18,7 @@ psql_username = os.environ.get('PSQL_USERNAME')
 
 hot_output_dir = "/mnt/ssd/hot/"
 
-
-
+count_N = 0
 try:
     # Fetch Protocol Buffer contents from MUNI API
     url = f"http://api.511.org/transit/vehiclepositions?api_key={MUNI_API_KEY}&agency=SF"
@@ -51,7 +50,6 @@ try:
             dt = datetime.fromtimestamp(v.timestamp, tz=timezone.utc)
             local_tz = pytz.timezone("America/Los_Angeles")
             dt_local = dt.astimezone(local_tz)
-            dt_local_12hr = dt_local.strftime("%I:%M:%S %p")
 
             # grab trip data, null if no current trip
             t = v.trip if v.HasField("trip") else None
@@ -80,7 +78,9 @@ try:
             
             # Handle occupancy status if available
             occupancy = v.occupancy_status if v.HasField("occupancy_status") else None
-
+            if route_id == "N":
+                count_N += 1
+            # list for json file
             vehicle = {
                 # time data
                 "iso_timestamp": dt_local.isoformat(),
@@ -105,24 +105,23 @@ try:
             vehicles_for_map.append(vehicle)
             vehicles_list = []
 
-    # for vehicle in data:
-    #     # add tuple representing vehicle to list for bulk insert into psql vehicles table
-        vehicles_for_db.append((
-            dt_local.isoformat(), # vehicle.get('iso_timestamp')
-            active, # vehicle.get('active'),
-            trip_id, # vehicle.get('trip_id'),
-            route_id, # vehicle.get('route_id'),
-            direction_id, # vehicle.get('direction_id'),
-            v.vehicle.id if v.HasField("vehicle") else None, # vehicle.get('vehicle_id'),
-            lat, # vehicle.get('lat'),
-            lon, # vehicle.get('lon'),
-            bearing, # vehicle.get('bearing'),
-            speed_mps, # vehicle.get('speed_mps'),
-            current_stop_sequence, # vehicle.get('current_stop_sequence'),
-            current_status, # vehicle.get('current_status'),
-            stop_id, # vehicle.get('stop_id'),
-            occupancy # vehicle.get('occupancy')
-        ))
+            # list for database
+            vehicles_for_db.append((
+                dt_local.isoformat(), # vehicle.get('iso_timestamp')
+                active, # vehicle.get('active'),
+                trip_id, # vehicle.get('trip_id'),
+                route_id, # vehicle.get('route_id'),
+                direction_id, # vehicle.get('direction_id'),
+                v.vehicle.id if v.HasField("vehicle") else None, # vehicle.get('vehicle_id'),
+                lat, # vehicle.get('lat'),
+                lon, # vehicle.get('lon'),
+                bearing, # vehicle.get('bearing'),
+                speed_mps, # vehicle.get('speed_mps'),
+                current_stop_sequence, # vehicle.get('current_stop_sequence'),
+                current_status, # vehicle.get('current_status'),
+                stop_id, # vehicle.get('stop_id'),
+                occupancy # vehicle.get('occupancy')
+            ))
         
         # execute insertion of vehicle records to db 
     psycopg2.extras.execute_values(
@@ -137,6 +136,7 @@ try:
     )
     conn.commit()
     print(f"Successfully inserted {len(vehicles_for_db)} vehicles")
+    print(count_N)
 
     if vehicles_for_map:
         # Write to disk
