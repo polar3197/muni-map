@@ -1,3 +1,8 @@
+
+/*+++++++++++++++++++++++++++++++++++++++++*/
+/*============ FORM =======================*/
+/*+++++++++++++++++++++++++++++++++++++++++*/
+
 /* Reset form positioning */
 form {
     margin: 0 auto 1em auto;  /* Simple centering */
@@ -48,15 +53,39 @@ form {
     }
 }
 
+/*+++++++++++++++++++++++++++++++++++++++++*/
+/*============ MAP ========================*/
+/*+++++++++++++++++++++++++++++++++++++++++*/
+
+.map-list-container {
+    display: flex;
+}
+
+.sidebar {
+    flex: 1;
+    overflow-y: auto;
+    height: 600px; /* Match your map height */
+    /* Add padding, background, etc. as desired */
+}
+
 /* Map styles */
 #map {
     height: 600px;
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
+    flex: 4
 }
 
 @media (max-width: 768px) {
+    .map-list-container {
+        flex-direction: column;  /* Stack map and sidebar vertically on mobile */
+    }
+    
+    .sidebar {
+        height: 200px;  /* Make sidebar shorter on mobile */
+    }
+    
     #map {
         height: 400px;
         width: 95%;
