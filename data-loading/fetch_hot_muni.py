@@ -15,7 +15,7 @@ hot_output_dir = "/mnt/ssd/hot/"
 
 try:
     # Fetch Protocol Buffer contents from MUNI API
-    url = "http://api.511.org/transit/vehiclepositions?api_key={MUNI_API_KEY}&agency=SF"
+    url = f"http://api.511.org/transit/vehiclepositions?api_key={MUNI_API_KEY}&agency=SF"
     response = requests.get(url)
 
     feed = gtfs_realtime_pb2.FeedMessage()

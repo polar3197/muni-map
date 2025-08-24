@@ -3748,3 +3748,5 @@ Traceback (most recent call last):
     load_dotenv()
     ^^^^^^^^^^^
 NameError: name 'load_dotenv' is not defined
+/home/charlie.c/muni_map/.muni-map/bin/python: can't open file '/home/charlie.c/muni_map/api/fetch_hot_muni.py': [Errno 2] No such file or directory
+/home/charlie.c/muni_map/.muni-map/bin/python: can't open file '/home/charlie.c/muni_map/api/fetch_hot_muni.py': [Errno 2] No such file or directory
