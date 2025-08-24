@@ -1,16 +1,23 @@
-import pandas as pd
-import os
-from dotenv import load_dotenv
-import json
-import requests
 from datetime import datetime, timezone
 from google.transit import gtfs_realtime_pb2
+from dotenv import load_dotenv
+import psycopg2.extras
+import pandas as pd
+import psycopg2
+import requests
+import json
 import pytz
+import os
 
 # load muni api key from local .env
 load_dotenv()
 MUNI_API_KEY = os.getenv('MUNI_API_KEY')
+muni_data_path = os.environ.get('HOT_MUNI_DATA')
+psql_db_name = os.environ.get('TRANSIT_DB_NAME')
+psql_username = os.environ.get('PSQL_USERNAME')
+
 hot_output_dir = "/mnt/ssd/hot/"
+
 
 
 try:
@@ -22,9 +29,20 @@ try:
     feed.ParseFromString(response.content)
     time_fetched = datetime.now().isoformat()
 
+    # set up connection to postgres db
+    conn = psycopg2.connect(
+        dbname=psql_db_name,
+        user=psql_username,
+    )
+    print("Connection to PostgreSQL successful!")
+    cur = conn.cursor()
+
     # Iterate through MUNI vehicles in operation
     count = 0
-    vehicles = []
+    # list of dictionaries for json file
+    vehicles_for_map = []
+    # list of list of values for database
+    vehicles_for_db = []
     for entity in feed.entity:
         if entity.HasField("vehicle"):
             v = entity.vehicle
@@ -84,13 +102,57 @@ try:
                 "stop_id": stop_id,
                 "occupancy": occupancy
             }
-            vehicles.append(vehicle)
+            vehicles_for_map.append(vehicle)
+            vehicles_list = []
 
-    if vehicles:
+    # for vehicle in data:
+    #     # add tuple representing vehicle to list for bulk insert into psql vehicles table
+        vehicles_for_db.append((
+            dt_local.isoformat(), # vehicle.get('iso_timestamp')
+            active, # vehicle.get('active'),
+            trip_id, # vehicle.get('trip_id'),
+            route_id, # vehicle.get('route_id'),
+            direction_id, # vehicle.get('direction_id'),
+            v.vehicle.id if v.HasField("vehicle") else None, # vehicle.get('vehicle_id'),
+            lat, # vehicle.get('lat'),
+            lon, # vehicle.get('lon'),
+            bearing, # vehicle.get('bearing'),
+            speed_mps, # vehicle.get('speed_mps'),
+            current_stop_sequence, # vehicle.get('current_stop_sequence'),
+            current_status, # vehicle.get('current_status'),
+            stop_id, # vehicle.get('stop_id'),
+            occupancy # vehicle.get('occupancy')
+        ))
+        
+        # execute insertion of vehicle records to db 
+    psycopg2.extras.execute_values(
+        cur,
+        """
+        INSERT INTO vehicles (iso_timestamp, active, trip_id, route_id, direction_id, vehicle_id, lat, lon, bearing, speed_mps, current_stop_sequence, current_status, stop_id, occupancy)
+        VALUES %s
+        """,
+        vehicles_for_db,
+        template=None,
+        page_size=100  # Insert in batches of 100
+    )
+    conn.commit()
+    print(f"Successfully inserted {len(vehicles_for_db)} vehicles")
+
+    if vehicles_for_map:
         # Write to disk
         with open(os.path.join(hot_output_dir, "map_data.json"), "w") as f:
-            json.dump(vehicles, f, indent=2)
-        print(f"[{datetime.now().isoformat()}] Saved {len(vehicles)} vehicles")
+            json.dump(vehicles_for_map, f, indent=2)
+        print(f"[{datetime.now().isoformat()}] Saved {len(vehicles_for_map)} vehicles")
 
+except psycopg2.Error as e:
+    print(f"Database error: {e}")
+    if 'conn' in locals():  # Only rollback if connection exists
+        conn.rollback()
 except Exception as e:
     print("Error:", e)
+finally:
+    # Clean up connections
+    if 'cur' in locals():
+        cur.close()
+    if 'conn' in locals():
+        conn.close()
