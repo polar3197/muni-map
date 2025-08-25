@@ -134,160 +134,134 @@ form {
 /*============ MOBILE MEDIA QUERIES =======*/
 /*+++++++++++++++++++++++++++++++++++++++++*/
 
-/* Tablet styles */
-@media (max-width: 768px) {
-    .map-list-container {
-        flex-direction: column;
-        padding: 0 20px; /* Reduce padding for tablets */
-        gap: 15px;
-    }
-    
-    .bus-info-container {
-        height: auto; /* Allow flexible height */
-        padding: 10px;
-    }
-    
-    .route-list {
-        width: 90%;
-        max-height: 300px;
-    }
-    
-    #map {
-        height: 450px;
-        width: 100%;
-    }
-}
-
-/* iPhone and small mobile devices */
+/* iPhone and small mobile devices - FORCE OVERRIDE */
 @media (max-width: 480px) {
-    /* Remove excessive padding */
+    /* CRITICAL: Force remove desktop padding */
     .map-list-container {
-        flex-direction: column;
-        padding: 0 10px; /* Much smaller padding for mobile */
-        gap: 10px;
-        margin-top: 1em; /* Reduce top margin */
+        flex-direction: column !important;
+        padding: 0 10px !important; /* Force override desktop 110px padding */
+        gap: 10px !important;
+        margin-top: 1em !important;
     }
     
-    /* Make form more mobile-friendly */
+    /* Force full width on mobile */
     form {
-        padding: 0 5px;
-        width: 100%;
+        padding: 0 5px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .bus-info-container {
-        height: auto; /* Allow flexible height */
-        padding: 10px 5px;
-        width: 100%;
-        box-sizing: border-box;
+        height: auto !important; /* Override fixed 600px height */
+        padding: 10px 5px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .bic-1 {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 5px;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 5px !important;
+        width: 100% !important;
     }
     
     .bic-2 {
-        margin: 0.5em auto;
-        text-align: center;
-        white-space: normal; /* Allow text wrapping on mobile */
+        margin: 0.5em auto !important;
+        text-align: center !important;
+        white-space: normal !important; /* Override nowrap */
+        width: 100% !important;
     }
     
     /* Make input fields touch-friendly */
     .bic-2 input[type="text"] {
-        min-width: 200px;
-        padding: 12px; /* Larger touch target */
-        font-size: 16px; /* Prevent zoom on iOS */
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        min-width: 200px !important;
+        max-width: 90% !important;
+        padding: 12px !important;
+        font-size: 16px !important; /* Prevent iOS zoom */
+        border-radius: 5px !important;
+        border: 1px solid #ccc !important;
+        box-sizing: border-box !important;
     }
     
-    /* Optimize route list for mobile */
+    /* Route list mobile optimization */
     .route-list {
-        width: 95%;
-        max-height: 250px;
-        padding: 5px;
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        width: 95% !important;
+        max-height: 250px !important;
+        padding: 5px !important;
+        -webkit-overflow-scrolling: touch !important;
+        overflow-y: auto !important;
     }
     
-    /* Make route cards more touch-friendly */
+    /* Route cards - force mobile sizing */
     .route-card {
-        height: 60px; /* Taller for easier tapping */
-        padding: 8px 15px;
-        margin: 6px 0;
-        font-size: 16px; /* Larger text for readability */
-        /* Add subtle shadow for depth */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        height: 60px !important;
+        padding: 8px 15px !important;
+        margin: 6px 0 !important;
+        font-size: 16px !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .route-id {
-        padding: 8px 12px;
-        font-weight: bold;
-        min-width: 60px; /* Ensure consistent width */
-        font-size: 14px;
+        padding: 8px 12px !important;
+        font-weight: bold !important;
+        min-width: 60px !important;
+        font-size: 14px !important;
     }
     
     .route-stats {
-        font-size: 14px;
-        padding-right: 10px;
+        font-size: 14px !important;
+        padding-right: 10px !important;
     }
     
-    /* Optimize map for mobile */
+    /* Map mobile optimization */
     #map {
-        height: 350px; /* Smaller height for mobile */
-        width: 100%;
-        margin: 0;
-        border-radius: 8px; /* Rounded corners look better on mobile */
+        height: 350px !important; /* Override 600px desktop height */
+        width: 100% !important;
+        margin: 0 !important;
+        border-radius: 8px !important;
     }
     
-    /* Make legend mobile-friendly */
+    /* Legend mobile fixes */
     .legend {
-        padding: 8px;
-        font-size: 14px;
-        line-height: 1.4;
-        max-width: 200px;
+        padding: 8px !important;
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        max-width: 200px !important;
     }
     
     .vehicle-label {
-        padding: 4px 8px;
-        font-size: 12px;
-        min-height: 24px; /* Ensure touch target size */
-        display: inline-flex;
-        align-items: center;
+        padding: 4px 8px !important;
+        font-size: 12px !important;
+        min-height: 24px !important;
+        display: inline-flex !important;
+        align-items: center !important;
     }
 }
 
 /* iPhone SE and very small devices */
 @media (max-width: 375px) {
     .map-list-container {
-        padding: 0 5px;
+        padding: 0 5px !important;
     }
     
     .bic-2 input[type="text"] {
-        min-width: 160px; /* Smaller for very small screens */
+        min-width: 160px !important;
+        max-width: 85% !important;
     }
     
     .route-list {
-        width: 98%;
+        width: 98% !important;
     }
     
     #map {
-        height: 300px;
+        height: 300px !important;
     }
     
     .route-card {
-        height: 55px;
-        padding: 6px 10px;
-        font-size: 15px;
-    }
-    
-    .route-id {
-        padding: 6px 10px;
-        font-size: 13px;
-        min-width: 50px;
-    }
-    
-    .route-stats {
-        font-size: 13px;
+        height: 55px !important;
+        padding: 6px 10px !important;
+        font-size: 15px !important;
     }
 }
