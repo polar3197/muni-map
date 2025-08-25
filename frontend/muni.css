@@ -88,35 +88,6 @@ form {
     padding-right: 1em;
 }
 
-/* Mobile fixes */
-@media (max-width: 768px) {
-    form {
-        padding: 0 10px;
-    }
-    
-    .bus-info-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-        border-color: rgb(4, 171, 29);
-        border-width: 5px;
-        border-style: solid;
-    }
-    
-    .bic-1 {
-        justify-content: center;
-        /* flex-wrap: wrap; */
-    }
-    
-    .bic-2 input[type="text"] {
-        min-width: 200px;
-    }
-
-    .route-list {
-        overflow-y: auto;
-    }
-}
-
 
 /*+++++++++++++++++++++++++++++++++++++++++*/
 /*============ MAP & STATS FLEXBOX ========*/
@@ -139,22 +110,6 @@ form {
     position: relative;
 }
 
-@media (max-width: 768px) {
-    .map-list-container {
-        flex-direction: column;  /* Stack map and sidebar vertically on mobile */
-    }
-    
-    .sidebar {
-        height: 200px;  /* Make sidebar shorter on mobile */
-    }
-    
-    #map {
-        height: 400px;
-        width: 95%;
-        margin: 0 auto;
-    }
-}
-
 /* dot selects div with matching 'class' val -- classes are not unique */
 .legend {
     background: white;
@@ -173,4 +128,166 @@ form {
     border-radius: 16px;
     font-size: 14px;
     white-space: nowrap;
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++*/
+/*============ MOBILE MEDIA QUERIES =======*/
+/*+++++++++++++++++++++++++++++++++++++++++*/
+
+/* Tablet styles */
+@media (max-width: 768px) {
+    .map-list-container {
+        flex-direction: column;
+        padding: 0 20px; /* Reduce padding for tablets */
+        gap: 15px;
+    }
+    
+    .bus-info-container {
+        height: auto; /* Allow flexible height */
+        padding: 10px;
+    }
+    
+    .route-list {
+        width: 90%;
+        max-height: 300px;
+    }
+    
+    #map {
+        height: 450px;
+        width: 100%;
+    }
+}
+
+/* iPhone and small mobile devices */
+@media (max-width: 480px) {
+    /* Remove excessive padding */
+    .map-list-container {
+        flex-direction: column;
+        padding: 0 10px; /* Much smaller padding for mobile */
+        gap: 10px;
+        margin-top: 1em; /* Reduce top margin */
+    }
+    
+    /* Make form more mobile-friendly */
+    form {
+        padding: 0 5px;
+        width: 100%;
+    }
+    
+    .bus-info-container {
+        height: auto; /* Allow flexible height */
+        padding: 10px 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .bic-1 {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .bic-2 {
+        margin: 0.5em auto;
+        text-align: center;
+        white-space: normal; /* Allow text wrapping on mobile */
+    }
+    
+    /* Make input fields touch-friendly */
+    .bic-2 input[type="text"] {
+        min-width: 200px;
+        padding: 12px; /* Larger touch target */
+        font-size: 16px; /* Prevent zoom on iOS */
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    
+    /* Optimize route list for mobile */
+    .route-list {
+        width: 95%;
+        max-height: 250px;
+        padding: 5px;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+    
+    /* Make route cards more touch-friendly */
+    .route-card {
+        height: 60px; /* Taller for easier tapping */
+        padding: 8px 15px;
+        margin: 6px 0;
+        font-size: 16px; /* Larger text for readability */
+        /* Add subtle shadow for depth */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .route-id {
+        padding: 8px 12px;
+        font-weight: bold;
+        min-width: 60px; /* Ensure consistent width */
+        font-size: 14px;
+    }
+    
+    .route-stats {
+        font-size: 14px;
+        padding-right: 10px;
+    }
+    
+    /* Optimize map for mobile */
+    #map {
+        height: 350px; /* Smaller height for mobile */
+        width: 100%;
+        margin: 0;
+        border-radius: 8px; /* Rounded corners look better on mobile */
+    }
+    
+    /* Make legend mobile-friendly */
+    .legend {
+        padding: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+        max-width: 200px;
+    }
+    
+    .vehicle-label {
+        padding: 4px 8px;
+        font-size: 12px;
+        min-height: 24px; /* Ensure touch target size */
+        display: inline-flex;
+        align-items: center;
+    }
+}
+
+/* iPhone SE and very small devices */
+@media (max-width: 375px) {
+    .map-list-container {
+        padding: 0 5px;
+    }
+    
+    .bic-2 input[type="text"] {
+        min-width: 160px; /* Smaller for very small screens */
+    }
+    
+    .route-list {
+        width: 98%;
+    }
+    
+    #map {
+        height: 300px;
+    }
+    
+    .route-card {
+        height: 55px;
+        padding: 6px 10px;
+        font-size: 15px;
+    }
+    
+    .route-id {
+        padding: 6px 10px;
+        font-size: 13px;
+        min-width: 50px;
+    }
+    
+    .route-stats {
+        font-size: 13px;
+    }
 }
