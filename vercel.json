@@ -1,3 +1,21 @@
 {
-  "regions": ["sfo1"]
+  "regions": ["sfo1"],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/frontend/muni.html"
+    },
+    {
+      "source": "/muni.css",
+      "destination": "/frontend/muni.css"
+    },
+    {
+      "source": "/muni.js",
+      "destination": "/frontend/muni.js"
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": "/assets/$1"
+    }
+  ]
 }
