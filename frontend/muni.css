@@ -229,12 +229,25 @@ form {
         padding-right: 8px !important;
     }
     
-    /* Legend mobile fixes */
+    /* Legend mobile fixes - scale with map */
     .legend {
-        padding: 8px !important;
-        font-size: 14px !important;
-        line-height: 1.4 !important;
-        max-width: 200px !important;
+        padding: 6px !important;
+        font-size: 12px !important;
+        line-height: 1.3 !important;
+        max-width: 150px !important;
+        min-width: 120px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+    }
+    
+    /* Scale down legend items */
+    .legend div {
+        margin: 2px 0 !important;
+    }
+    
+    .legend span {
+        width: 12px !important;
+        height: 12px !important;
+        margin-right: 4px !important;
     }
     
     .vehicle-label {
@@ -271,5 +284,19 @@ form {
         height: 45px !important;
         padding: 5px 8px !important;
         font-size: 13px !important;
+    }
+    
+    /* Scale legend even smaller for tiny screens */
+    .legend {
+        padding: 4px !important;
+        font-size: 11px !important;
+        max-width: 130px !important;
+        min-width: 100px !important;
+    }
+    
+    .legend span {
+        width: 10px !important;
+        height: 10px !important;
+        margin-right: 3px !important;
     }
 }
