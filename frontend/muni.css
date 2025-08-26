@@ -188,6 +188,7 @@ form {
     
     /* Make input fields touch-friendly */
     .bic-2 input[type="text"] {
+        font-size: 16px !important;
         min-width: 200px !important;
         max-width: 90% !important;
         padding: 12px !important;
@@ -266,6 +267,7 @@ form {
     }
     
     .bic-2 input[type="text"] {
+        font-size: 16px !important;
         min-width: 160px !important;
         max-width: 85% !important;
     }
