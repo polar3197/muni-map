@@ -139,9 +139,21 @@ form {
     /* CRITICAL: Force remove desktop padding */
     .map-list-container {
         flex-direction: column !important;
-        padding: 0 10px !important; /* Force override desktop 110px padding */
+        padding: 0 10px !important;
         gap: 10px !important;
         margin-top: 1em !important;
+    }
+    
+    /* Map mobile optimization - ENSURE VISIBILITY */
+    #map {
+        height: 350px !important;
+        width: 100% !important;
+        min-height: 350px !important; /* Force minimum height */
+        margin: 0 !important;
+        border-radius: 8px !important;
+        border: 2px solid #ccc !important; /* Debug border to see map container */
+        flex-shrink: 0 !important; /* Prevent flex from shrinking the map */
+        order: 1 !important; /* Ensure map appears first */
     }
     
     /* Force full width on mobile */
@@ -152,10 +164,12 @@ form {
     }
     
     .bus-info-container {
-        height: auto !important; /* Override fixed 600px height */
+        height: auto !important;
         padding: 10px 5px !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        order: 2 !important; /* Ensure sidebar appears after map */
+        flex-shrink: 0 !important;
     }
     
     .bic-1 {
@@ -168,7 +182,7 @@ form {
     .bic-2 {
         margin: 0.5em auto !important;
         text-align: center !important;
-        white-space: normal !important; /* Override nowrap */
+        white-space: normal !important;
         width: 100% !important;
     }
     
@@ -177,7 +191,7 @@ form {
         min-width: 200px !important;
         max-width: 90% !important;
         padding: 12px !important;
-        font-size: 16px !important; /* Prevent iOS zoom */
+        font-size: 16px !important;
         border-radius: 5px !important;
         border: 1px solid #ccc !important;
         box-sizing: border-box !important;
@@ -186,7 +200,7 @@ form {
     /* Route list mobile optimization */
     .route-list {
         width: 95% !important;
-        max-height: 250px !important;
+        max-height: 200px !important; /* Smaller so it doesn't dominate */
         padding: 5px !important;
         -webkit-overflow-scrolling: touch !important;
         overflow-y: auto !important;
@@ -194,33 +208,25 @@ form {
     
     /* Route cards - force mobile sizing */
     .route-card {
-        height: 60px !important;
-        padding: 8px 15px !important;
-        margin: 6px 0 !important;
-        font-size: 16px !important;
+        height: 50px !important; /* Smaller cards */
+        padding: 6px 12px !important;
+        margin: 4px 0 !important;
+        font-size: 14px !important;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
         width: 100% !important;
         box-sizing: border-box !important;
     }
     
     .route-id {
-        padding: 8px 12px !important;
+        padding: 6px 10px !important;
         font-weight: bold !important;
-        min-width: 60px !important;
-        font-size: 14px !important;
+        min-width: 50px !important;
+        font-size: 13px !important;
     }
     
     .route-stats {
-        font-size: 14px !important;
-        padding-right: 10px !important;
-    }
-    
-    /* Map mobile optimization */
-    #map {
-        height: 350px !important; /* Override 600px desktop height */
-        width: 100% !important;
-        margin: 0 !important;
-        border-radius: 8px !important;
+        font-size: 13px !important;
+        padding-right: 8px !important;
     }
     
     /* Legend mobile fixes */
@@ -253,15 +259,17 @@ form {
     
     .route-list {
         width: 98% !important;
+        max-height: 180px !important;
     }
     
     #map {
         height: 300px !important;
+        min-height: 300px !important;
     }
     
     .route-card {
-        height: 55px !important;
-        padding: 6px 10px !important;
-        font-size: 15px !important;
+        height: 45px !important;
+        padding: 5px 8px !important;
+        font-size: 13px !important;
     }
 }
