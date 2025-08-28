@@ -74,7 +74,7 @@ try:
             lat = position.latitude if position else None
             lon = position.longitude if position else None
             bearing = position.bearing if position and position.HasField("bearing") else None
-            speed_mps = position.speed if position and position.HasField("speed") else None
+            speed_mph = position.speed if position and position.HasField("speed") else None
             
             # Handle occupancy status if available
             occupancy = v.occupancy_status if v.HasField("occupancy_status") else None
@@ -96,7 +96,7 @@ try:
                 "lat": lat, 
                 "lon": lon,
                 "bearing": bearing,
-                "speed_mps": speed_mps,
+                "speed_mph": speed_mph,
                 "current_stop_sequence": current_stop_sequence,
                 "current_status": current_status,
                 "stop_id": stop_id,
@@ -116,7 +116,7 @@ try:
                 lat, # vehicle.get('lat'),
                 lon, # vehicle.get('lon'),
                 bearing, # vehicle.get('bearing'),
-                speed_mps, # vehicle.get('speed_mps'),
+                speed_mph, # vehicle.get('speed_mph'),
                 current_stop_sequence, # vehicle.get('current_stop_sequence'),
                 current_status, # vehicle.get('current_status'),
                 stop_id, # vehicle.get('stop_id'),
@@ -127,7 +127,7 @@ try:
     psycopg2.extras.execute_values(
         cur,
         """
-        INSERT INTO vehicles (iso_timestamp, active, trip_id, route_id, direction_id, vehicle_id, lat, lon, bearing, speed_mps, current_stop_sequence, current_status, stop_id, occupancy)
+        INSERT INTO vehicles (iso_timestamp, active, trip_id, route_id, direction_id, vehicle_id, lat, lon, bearing, speed_mph, current_stop_sequence, current_status, stop_id, occupancy)
         VALUES %s
         """,
         vehicles_for_db,
