@@ -9,7 +9,9 @@ import requests
 import subprocess
 from pathlib import Path
 from google.transit import gtfs_realtime_pb2
+from dotenv import dotenv_load
 
+dotenv_load()
 static_output_dir = os.environ.get("STATIC_MUNI_DATA")
 temp_zip_path = Path(static_output_dir) / "temp_gtfs.zip"
 data_dir = Path(static_output_dir) / "data"
