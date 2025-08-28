@@ -11,4 +11,4 @@ routes_csv = Path(data_dir) / "routes.txt"
 df = pd.read_csv(routes_csv)
 trimmed_df = df.loc[df["agency_id"] == "SF", ["route_short_name", "route_long_name", "route_color"]]
 print(trimmed_df)
-trimmed_df.to_csv(f"{Path(static_output_dir) / 'route_info.csv'}", index=False)
+trimmed_df.to_json(f"{Path(static_output_dir) / 'route_info.json'}", orient='records', compression='infer', index=False)
