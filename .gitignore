@@ -1,3 +1,4 @@
 .muni-map
 logs/fetch.log
 .env
+static/*
