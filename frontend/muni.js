@@ -132,7 +132,11 @@ function updateVehicles() {
         Object.entries(routeCounts).forEach(([route, count]) => {
             html += `
                 <div class="route-card">
-                    <div class="route-id">Route: ${route}</div>
+                    <div class="route-id-col">
+                        <div class="route-id">
+                            Route: ${route}
+                        </div>
+                    </div>
                     <div class="route-stats">${count}</div>
                 </div>
             `

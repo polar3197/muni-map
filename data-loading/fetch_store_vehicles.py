@@ -18,7 +18,6 @@ psql_username = os.environ.get('PSQL_USERNAME')
 
 hot_output_dir = "/mnt/ssd/hot/"
 
-count_N = 0
 try:
     # Fetch Protocol Buffer contents from MUNI API
     url = f"http://api.511.org/transit/vehiclepositions?api_key={MUNI_API_KEY}&agency=SF"
@@ -78,8 +77,6 @@ try:
             
             # Handle occupancy status if available
             occupancy = v.occupancy_status if v.HasField("occupancy_status") else None
-            if route_id == "N":
-                count_N += 1
             # list for json file
             vehicle = {
                 # time data
@@ -136,7 +133,6 @@ try:
     )
     conn.commit()
     print(f"Successfully inserted {len(vehicles_for_db)} vehicles")
-    print(count_N)
 
     if vehicles_for_map:
         # Write to disk
