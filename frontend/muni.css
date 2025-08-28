@@ -88,35 +88,6 @@ form {
     padding-right: 1em;
 }
 
-/* Mobile fixes */
-@media (max-width: 768px) {
-    form {
-        padding: 0 10px;
-    }
-    
-    .bus-info-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
-        border-color: rgb(4, 171, 29);
-        border-width: 5px;
-        border-style: solid;
-    }
-    
-    .bic-1 {
-        justify-content: center;
-        /* flex-wrap: wrap; */
-    }
-    
-    .bic-2 input[type="text"] {
-        min-width: 200px;
-    }
-
-    .route-list {
-        overflow-y: auto;
-    }
-}
-
 
 /*+++++++++++++++++++++++++++++++++++++++++*/
 /*============ MAP & STATS FLEXBOX ========*/
@@ -139,22 +110,6 @@ form {
     position: relative;
 }
 
-@media (max-width: 768px) {
-    .map-list-container {
-        flex-direction: column;  /* Stack map and sidebar vertically on mobile */
-    }
-    
-    .sidebar {
-        height: 200px;  /* Make sidebar shorter on mobile */
-    }
-    
-    #map {
-        height: 400px;
-        width: 95%;
-        margin: 0 auto;
-    }
-}
-
 /* dot selects div with matching 'class' val -- classes are not unique */
 .legend {
     background: white;
@@ -173,4 +128,177 @@ form {
     border-radius: 16px;
     font-size: 14px;
     white-space: nowrap;
+}
+
+/*+++++++++++++++++++++++++++++++++++++++++*/
+/*============ MOBILE MEDIA QUERIES =======*/
+/*+++++++++++++++++++++++++++++++++++++++++*/
+
+/* iPhone and small mobile devices - FORCE OVERRIDE */
+@media (max-width: 480px) {
+    /* CRITICAL: Force remove desktop padding */
+    .map-list-container {
+        flex-direction: column !important;
+        padding: 0 10px !important;
+        gap: 10px !important;
+        margin-top: 1em !important;
+    }
+    
+    /* Map mobile optimization - ENSURE VISIBILITY */
+    #map {
+        height: 350px !important;
+        width: 100% !important;
+        min-height: 350px !important; /* Force minimum height */
+        margin: 0 !important;
+        border-radius: 8px !important;
+        border: 2px solid #ccc !important; /* Debug border to see map container */
+        flex-shrink: 0 !important; /* Prevent flex from shrinking the map */
+        order: 1 !important; /* Ensure map appears first */
+    }
+    
+    /* Force full width on mobile */
+    form {
+        padding: 0 5px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .bus-info-container {
+        height: auto !important;
+        padding: 10px 5px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        order: 2 !important; /* Ensure sidebar appears after map */
+        flex-shrink: 0 !important;
+    }
+    
+    .bic-1 {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 5px !important;
+        width: 100% !important;
+    }
+    
+    .bic-2 {
+        margin: 0.5em auto !important;
+        text-align: center !important;
+        white-space: normal !important;
+        width: 100% !important;
+    }
+    
+    /* Make input fields touch-friendly */
+    .bic-2 input[type="text"] {
+        font-size: 16px !important;
+        min-width: 200px !important;
+        max-width: 90% !important;
+        padding: 12px !important;
+        font-size: 16px !important;
+        border-radius: 5px !important;
+        border: 1px solid #ccc !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Route list mobile optimization */
+    .route-list {
+        width: 95% !important;
+        max-height: 200px !important; /* Smaller so it doesn't dominate */
+        padding: 5px !important;
+        -webkit-overflow-scrolling: touch !important;
+        overflow-y: auto !important;
+    }
+    
+    /* Route cards - force mobile sizing */
+    .route-card {
+        height: 50px !important; /* Smaller cards */
+        padding: 6px 12px !important;
+        margin: 4px 0 !important;
+        font-size: 14px !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .route-id {
+        padding: 6px 10px !important;
+        font-weight: bold !important;
+        min-width: 50px !important;
+        font-size: 13px !important;
+    }
+    
+    .route-stats {
+        font-size: 13px !important;
+        padding-right: 8px !important;
+    }
+    
+    /* Legend mobile fixes - scale with map */
+    .legend {
+        padding: 6px !important;
+        font-size: 12px !important;
+        line-height: 1.3 !important;
+        max-width: 150px !important;
+        min-width: 120px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+    }
+    
+    /* Scale down legend items */
+    .legend div {
+        margin: 2px 0 !important;
+    }
+    
+    .legend span {
+        width: 12px !important;
+        height: 12px !important;
+        margin-right: 4px !important;
+    }
+    
+    .vehicle-label {
+        padding: 4px 8px !important;
+        font-size: 12px !important;
+        min-height: 24px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+}
+
+/* iPhone SE and very small devices */
+@media (max-width: 375px) {
+    .map-list-container {
+        padding: 0 5px !important;
+    }
+    
+    .bic-2 input[type="text"] {
+        font-size: 16px !important;
+        min-width: 160px !important;
+        max-width: 85% !important;
+    }
+    
+    .route-list {
+        width: 98% !important;
+        max-height: 180px !important;
+    }
+    
+    #map {
+        height: 300px !important;
+        min-height: 300px !important;
+    }
+    
+    .route-card {
+        height: 45px !important;
+        padding: 5px 8px !important;
+        font-size: 13px !important;
+    }
+    
+    /* Scale legend even smaller for tiny screens */
+    .legend {
+        padding: 4px !important;
+        font-size: 11px !important;
+        max-width: 130px !important;
+        min-width: 100px !important;
+    }
+    
+    .legend span {
+        width: 10px !important;
+        height: 10px !important;
+        margin-right: 3px !important;
+    }
 }
