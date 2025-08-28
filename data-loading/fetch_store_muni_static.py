@@ -9,18 +9,14 @@ import requests
 import subprocess
 from pathlib import Path
 from google.transit import gtfs_realtime_pb2
-<<<<<<< HEAD
 from dotenv import dotenv_load
 
 dotenv_load()
-=======
-
->>>>>>> 73cf64feb7f6bf9e293df9ac9e9df127a830ef1a
 static_output_dir = os.environ.get("STATIC_MUNI_DATA")
+api_key = os.environ.get("MUNI_API_KEY")
 temp_zip_path = Path(static_output_dir) / "temp_gtfs.zip"
 data_dir = Path(static_output_dir) / "data"
 
-api_key = os.getenv('API_511_KEY')
 if not api_key:
     raise ValueError("API_511_KEY environment variable not set")
 

@@ -134,10 +134,17 @@ function updateVehicles() {
                 <div class="route-card">
                     <div class="route-id-col">
                         <div class="route-id">
-                            Route: ${route}
+                            ${route}
                         </div>
                     </div>
-                    <div class="route-stats">${count}</div>
+                    <div class="route-stats-col">
+                        <div class="route-detail">
+                            # buses: ${count}
+                        </div>
+                        <div class="route-detail">
+                            ??
+                        </div>
+                    </div>
                 </div>
             `
         });
