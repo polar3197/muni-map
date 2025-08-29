@@ -99,9 +99,13 @@ function updateVehicles() {
 
             // keep track of count of vehicle per route
             if (routeCounts[vehicle.route_id]) {
-                routeCounts[vehicle.route_id]++;
+                routeCounts[vehicle.route_id].count++;
             } else {
-                routeCounts[vehicle.route_id] = 1;
+                routeCounts[vehicle.route_id] = {
+                    count: 1,
+                    name: vehicle.route_name,
+                    color: vehicle.route_color
+                };
             }
 
             // get vehicle color
@@ -129,20 +133,20 @@ function updateVehicles() {
 
         // Update the html route list
         let html = '';
-        Object.entries(routeCounts).forEach(([route, count]) => {
+        Object.entries(routeCounts).forEach(([route, data]) => {
             html += `
                 <div class="route-card">
                     <div class="route-id-col">
-                        <div class="route-id">
+                        <div class="route-id" style="background-color: #${data.color}">
                             ${route}
                         </div>
                     </div>
                     <div class="route-stats-col">
                         <div class="route-detail">
-                            
+                            ${data.name}
                         </div>
                         <div class="route-detail">
-                            # buses: ${count}
+                            # buses: ${data.count}
                         </div>
                     </div>
                 </div>
