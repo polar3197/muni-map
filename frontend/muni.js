@@ -139,10 +139,10 @@ function updateVehicles() {
                     </div>
                     <div class="route-stats-col">
                         <div class="route-detail">
-                            # buses: ${count}
+                            
                         </div>
                         <div class="route-detail">
-                            ??
+                            # buses: ${count}
                         </div>
                     </div>
                 </div>
