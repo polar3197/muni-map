@@ -47,7 +47,10 @@ form {
     flex: 1;
     width: 80%;
     min-height: 0;
-    /* gap: 10px; */
+
+    /* display: flex; 
+    flex-direction: column; 
+    gap: 8px;   */
     padding: 0 10px;   
     border-color: rgb(0, 0, 0);
     border-width: 1px;
@@ -59,59 +62,67 @@ form {
     display: flex;
     border-radius: 5px;
     width: 100%;
-    height: 78px;
+    height: 80px;
+    margin-top: 10px;
     padding: 4px 12px;
-    justify-content: space-between;
-    gap: 10px;
+    justify-content: flex-start;
     border-color: rgb(40, 38, 38);
     border-width: 0.1px;
     border-style: solid;
-    background-color:rgb(255, 251, 228);
+    background-color: rgb(255, 251, 228);
     box-sizing: border-box;
-    /* other card styles */
+    align-items: center; 
 }
 
 .route-id-col {
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding-top: 6px;
-    flex-grow: 1;
-    /* border-color: rgb(0, 0, 0);
-    border-width: 1px;
-    border-style: solid; */
+    width: 60px; 
+    flex-shrink: 0;
+    justify-content: flex-end;
+    padding: 8px;
 }
 
 .route-id {
     height: 40px;
-    width: 40px;
+    width: 40px;  
     text-align: center;
     border-radius: 5px;
     border-color: rgb(0, 0, 0);
     border-width: 1px;
     border-style: solid;
-
-    /* Add these lines for perfect centering */
     display: flex;
-    align-items: center;      /* vertical centering */
+    align-items: center;
     justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
 }
 
 .route-stats-col {
     display: flex;
     flex-direction: column;
-    border-color: rgb(0, 0, 0);
-    border-width: 1px;
-    padding: 6px 0;
-    gap: 8px;
-    flex-grow: 5;
-    border-style: solid;
+    flex: 1;
+    justify-content: center;
+    min-width: 0; 
 }
 
 .route-detail {
-    border-color: rgb(0, 0, 0);
-    border-width: 1px;
-    border-style: solid;
+    /* Remove borders - they're adding visual clutter */
+    text-align: left;
+    /* white-space: nowrap;  */
+    overflow: wrap;        
+    margin: 2px 0;        
+}
+
+/* Make route name larger and bus count smaller */
+.route-detail:first-child {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.route-detail:last-child {
+    font-size: 12px;
 }
 
 

@@ -137,7 +137,7 @@ function updateVehicles() {
             html += `
                 <div class="route-card">
                     <div class="route-id-col">
-                        <div class="route-id" style="background-color: #${data.color}">
+                        <div class="route-id" style="background: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), #${data.color};">
                             ${route}
                         </div>
                     </div>
@@ -146,7 +146,7 @@ function updateVehicles() {
                             ${data.name}
                         </div>
                         <div class="route-detail">
-                            # buses: ${data.count}
+                            ${data.count} vehicles
                         </div>
                     </div>
                 </div>
