@@ -65,7 +65,6 @@ function getOccupancyColor(vehicle) {
       case 3:
         return "lightcoral";
       default:
-        console.log(vehicle.route_id, vehicle.occupancy);
         return "lightgray";  // fallback for undefined or unexpected values
     }
 }
@@ -86,6 +85,18 @@ function updateVehicles() {
     // then commands wait for the previous function call to return before running
     }).then(response => response.json())
       .then(data => {
+        // get timestamp for page freshness update
+        curr_time = data[0].timestamp;
+        const date = new Date(curr_time)
+        // Update the html route list
+        let header_html = `
+            <h2 style="text-align: center; margin-bottom: 0.5em;">
+                SFMTA MUNI Buses - updated @ ${date.toLocaleString()}
+            </h2>
+        `;
+        const headerContainer = document.querySelector('.header');
+        headerContainer.innerHTML = header_html;
+
         // now vehicle is a json object as defined when pushed to API
         data.forEach(vehicle => {
             if (!vehicle.route_id) return;
