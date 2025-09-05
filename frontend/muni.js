@@ -77,7 +77,7 @@ function updateVehicles() {
     // clears routes to display
     routeCounts = {};
     // grab json object from API
-    fetch("https://968885fb556c.ngrok-free.app/hot-data", {
+    fetch("https://fa865eb43b87.ngrok-free.app/hot-data", {
         // tell auto-fetch it can skip ngrok's verification header
         headers: {
             "ngrok-skip-browser-warning": "true"

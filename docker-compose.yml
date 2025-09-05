@@ -1,0 +1,10 @@
+services:
+  muni-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - /mnt/ssd/hot:/mnt/ssd/hot:ro  # ro = read-only
+    environment:
+      - HOT_MUNI_DATA=/mnt/ssd/hot/map_data.json
+    restart: unless-stopped
