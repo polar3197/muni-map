@@ -87,11 +87,14 @@ def get_stops_sql():
         for i, r in filtered_stops.iterrows():
             stop_id = r['stop_id']
             name = r['stop_name']
+            lat = r['stop_lat']
+            lon = r['stop_lon']
+            print(lat)
             
             cur.execute("""
-                INSERT INTO stops (stop_id, name)
-                VALUES (%s, %s)
-            """, (stop_id, name))
+                INSERT INTO stops (stop_id, name, lat, lon)
+                VALUES (%s, %s, %s, %s)
+            """, (stop_id, name, lat, lon))
 
         conn.commit()
 
